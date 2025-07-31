@@ -44,22 +44,4 @@
 - `(b *TokensBuilder) Add(d *ddm.Declaration)`：向 token 构建器添加声明。
 - `(b *TokensBuilder) Finalize()`：计算最终的 DeclarationsToken 与时间戳。
 
-## 测试文件
-
-### declaration_test.go
-- `TestUnmarshal(t *testing.T)`：验证 ParseDeclaration 的基本解析功能。
-- `TestUnmarshalPayload(t *testing.T)`：验证带 Payload 的声明解析。
-
-### items_test.go
-- `TestManifestType(t *testing.T)`：测试 ManifestType 的各种输入情况。
-
-### path_test.go
-- `TestPathSplit(t *testing.T)`：测试 ParseDeclarationPath 的多种路径场景。
-
-### status_test.go
-- `TestStatusParse(t *testing.T)`：从示例 JSON 验证状态解析流程。
-
-### build/di_test.go
-- `TestBuilder(t *testing.T)`：测试 DIBuilder 的添加与 Finalize 行为。
-
-以上即为 `ddm` 目录下所有 Go 文件中函数的简要说明。
+以上即为 `ddm` 目录下主要 Go 文件中的函数简介，不包含测试代码。
