@@ -260,4 +260,52 @@ ORDER BY
 | `status_errors` | 状态报告中的错误记录 |
 | `status_reports` | 完整的原始状态报文存档 |
 
-数据库关系示意图见 `docs/rel.png`，展示了声明、集合与设备之间的联系。
+## 数据库 ER 图
+
+下图展示了数据库各表之间的关系，使用 Mermaid 语法绘制，源文件位于 `docs/db_er_diagram.mmd`：
+
+```mermaid
+erDiagram
+    declarations {
+        VARCHAR identifier PK
+        VARCHAR type
+        JSON payload
+        CHAR server_token
+    }
+    set_declarations {
+        VARCHAR set_name PK
+        VARCHAR declaration_identifier PK
+    }
+    enrollment_sets {
+        VARCHAR enrollment_id PK
+        VARCHAR set_name PK
+    }
+    status_declarations {
+        VARCHAR enrollment_id PK
+        VARCHAR declaration_identifier PK
+        VARCHAR status_id
+    }
+    status_values {
+        VARCHAR enrollment_id
+        VARCHAR path
+        VARCHAR status_id
+    }
+    status_errors {
+        VARCHAR enrollment_id
+        VARCHAR path
+        VARCHAR status_id
+    }
+    status_reports {
+        VARCHAR enrollment_id
+        JSON status_report
+        VARCHAR status_id
+    }
+
+    declarations ||--o{ set_declarations : "declaration_identifier"
+    declarations ||--o{ status_declarations : "declaration_identifier"
+    status_declarations ||--o{ status_values : "status_id"
+    status_declarations ||--o{ status_errors : "status_id"
+    status_declarations ||--o{ status_reports : "status_id"
+    set_declarations }o--o{ enrollment_sets : "set_name"
+```
+

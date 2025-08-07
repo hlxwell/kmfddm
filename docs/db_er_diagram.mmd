@@ -1,0 +1,42 @@
+erDiagram
+    declarations {
+        VARCHAR identifier PK
+        VARCHAR type
+        JSON payload
+        CHAR server_token
+    }
+    set_declarations {
+        VARCHAR set_name PK
+        VARCHAR declaration_identifier PK
+    }
+    enrollment_sets {
+        VARCHAR enrollment_id PK
+        VARCHAR set_name PK
+    }
+    status_declarations {
+        VARCHAR enrollment_id PK
+        VARCHAR declaration_identifier PK
+        VARCHAR status_id
+    }
+    status_values {
+        VARCHAR enrollment_id
+        VARCHAR path
+        VARCHAR status_id
+    }
+    status_errors {
+        VARCHAR enrollment_id
+        VARCHAR path
+        VARCHAR status_id
+    }
+    status_reports {
+        VARCHAR enrollment_id
+        JSON status_report
+        VARCHAR status_id
+    }
+
+    declarations ||--o{ set_declarations : "declaration_identifier"
+    declarations ||--o{ status_declarations : "declaration_identifier"
+    status_declarations ||--o{ status_values : "status_id"
+    status_declarations ||--o{ status_errors : "status_id"
+    status_declarations ||--o{ status_reports : "status_id"
+    set_declarations }o--o{ enrollment_sets : "set_name"
